@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <title>{{ title }}</title>
+</head>
+
+<body>
+  {% block content %}
+  {% endblock %}
+
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vConsole/3.3.4/vconsole.min.js"></script>
+  <script>
+    var userProfile;
+
+    window.onload = function () {
+      {% if debug == True %}
+      initVConsole();
+      {% endif %}
+      initLiff();
+    };
+
+    // Initialize vConsole
+    function initVConsole() {
+      window.vConsole = new window.VConsole({
+        defaultPlugins: ['system', 'network', 'element', 'storage'],
+        maxLogNumber: 1000,
+        onReady: function () {
+          console.log('vConsole is ready.');
+        },
+        onClearLog: function () {
+          console.log('on clearLog');
+        }
+      });
+    };
+
+    // Initialize LIFF
+    function initLiff() {
+      console.log('going to initialize LIFF');
+      liff.init({
+        liffId: "{{ liff_id }}"
+      }).then(() => {
+        display_liff_info();
+      }).catch((err) => {
+        console.error('LIFF getProfile failed', err);
+      })
+    };
+
+    function display_liff_info() {
+      console.log('LIFF initialized!');
+
+      console.log("{{ liff_id }}");
+      console.info(liff.getOS());
+      console.info(liff.getLanguage());
+      console.info(liff.getVersion());
+      console.info(liff.getLineVersion());
+      console.info(liff.isInClient());
+      console.info(liff.isLoggedIn());
+      liff.getProfile().then(profile => {
+        userProfile = profile
+        console.info(userProfile.userId);
+        console.info(userProfile.displayName);
+        console.info(userProfile.pictureUrl);
+        console.info(userProfile.statusMessage);
+      }).catch((err) => {
+        console.log('error', err);
+      });
+    };
+  </script>
+
+</body>
+
+</html>

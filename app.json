@@ -1,0 +1,33 @@
+{
+  "name": "Parameterized LIFF",
+  "description": "Parameterized LIFF Sample",
+  "keywords": [
+    "python",
+    "LINE",
+    "LIFF",
+    "Flask"
+  ],
+  "repository": "https://github.com/hiro-ogawa/parameterized-liff",
+  "env": {
+    "LINE_CHANNEL_SECRET": {
+      "description": "LINE Channel Secret"
+    },
+    "LINE_CHANNEL_ACCESS_TOKEN": {
+      "description": "LINE Channel Access Token"
+    },
+    "LIFF_ID_FULL": {
+      "description": "LIFF ID for Full"
+    },
+    "LIFF_ID_TALL": {
+      "description": "LIFF ID for Tall"
+    },
+    "LIFF_ID_COMPACT": {
+      "description": "LIFF ID for Compact"
+    },
+    "DEBUG": {
+      "description": "DEBUG flag",
+      "value": "True",
+      "required": false
+    }
+  }
+}
